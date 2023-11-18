@@ -7,12 +7,14 @@ FFmpeg commands helper for flutter with support for setup on windows platform.
 Create thumbnail and run ffprobe on all platforms except WEB.
 This uses ffmpeg_kit_flutter_min_gpl package for android/ios/macos
 Info was taken from ffmpeg_cli and recreated it as that project was stale.
+
 ```dart
 // Initialize in main
-  await FFMpegHelper.instance.initialize(); // This is a singleton instance
-  // FFMpegHelper ffmpeg = FFMpegHelpe.instance; // use like this
-  runApp(const MyApp());
+await FFMpegHelper.instance.initialize(); // This is a singleton instance
+// FFMpegHelper ffmpeg = FFMpegHelper.instance; // use like this
+runApp(const MyApp());
 ```
+
 ```dart
 // Command builder
 // Use prebuilt args and filters or create custom ones

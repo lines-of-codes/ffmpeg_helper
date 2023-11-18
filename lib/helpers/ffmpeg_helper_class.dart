@@ -4,6 +4,13 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/ffprobe_kit.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_session.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/media_information.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/media_information_session.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/statistics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as path;
@@ -125,7 +132,7 @@ class FFMpegHelper {
     Function(Statistics statistics)? statisticsCallback,
     Function(File? outputFile)? onComplete,
   }) async {
-    FFmpegSession sess = await FFmpegKit.executeAsync(
+    FFmpegSession session = await FFmpegKit.executeAsync(
       command.toCli().join(' '),
       (FFmpegSession session) async {
         final code = await session.getReturnCode();
@@ -141,9 +148,9 @@ class FFMpegHelper {
       },
     );
     return FFMpegHelperSession(
-      nonWindowSession: sess,
+      nonWindowSession: session,
       cancelSession: () async {
-        await sess.cancel();
+        await session.cancel();
       },
     );
   }
@@ -194,8 +201,8 @@ class FFMpegHelper {
             double.tryParse(temp['fps']) ?? 0.0,
             double.tryParse(temp['stream_0_0_q']) ?? 0.0,
             int.tryParse(temp['total_size']) ?? 0,
-            int.tryParse(temp['out_time_us']) ?? 0,
-            // 2189.6kbits/s => 2189.6
+            double.tryParse(temp['out_time_us']) ?? 0,
+            // 2189.6 KBits/s => 2189.6
             double.tryParse(
                     temp['bitrate']?.replaceAll(RegExp('[a-z/]'), '')) ??
                 0.0,
