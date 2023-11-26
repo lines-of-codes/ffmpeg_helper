@@ -4,13 +4,6 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/ffprobe_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_session.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/media_information.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/media_information_session.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/statistics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as path;
@@ -142,7 +135,11 @@ class FFMpegHelper {
           onComplete?.call(null);
         }
       },
-      null,
+      (log) {
+        if (kDebugMode) {
+          print("FFmpeg (${log.getSessionId()}, ${log.getLevel()}): ${log.getMessage()}");
+        }
+      },
       (Statistics statistics) {
         statisticsCallback?.call(statistics);
       },
