@@ -1,11 +1,10 @@
 import 'dart:io';
+
 import 'package:ffmpeg_helper/ffmpeg_helper.dart';
-import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
-import 'package:material_dialogs/material_dialogs.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -74,24 +73,23 @@ class _HomePageState extends State<HomePage> {
       });
     } else if (Platform.isLinux) {
       // show dialog box
-      await Dialogs.materialDialog(
-          color: Colors.white,
-          msg:
-              'FFmpeg installation required by user.\nsudo apt-get install ffmpeg\nsudo snap install ffmpeg',
-          title: 'Install FFMpeg',
+      await showDialog(
           context: context,
-          actions: [
-            IconsButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              text: 'Ok',
-              iconData: Icons.done,
-              color: Colors.blue,
-              textStyle: const TextStyle(color: Colors.white),
-              iconColor: Colors.white,
-            ),
-          ]);
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Install FFmpeg"),
+              content: const Text(
+                  "FFmpeg installation required by user.\nsudo apt-get install ffmpeg\nsudo snap install ffmpeg"),
+              actions: [
+                TextButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  label: const Text("OK"),
+                )
+              ],
+            );
+          });
     }
   }
 

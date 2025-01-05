@@ -1,10 +1,11 @@
 import 'dart:async';
+
 import 'package:ffmpeg_helper/ffmpeg_helper.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart' as material;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart' as flutter_acrylic;
 import 'package:window_manager/window_manager.dart';
+
 import 'homepage.dart';
 
 Future<void> main() async {
@@ -68,13 +69,12 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: NavigationView(
-        appBar: NavigationAppBar(
+        appBar: const NavigationAppBar(
           height: 40,
-          leading: const Icon(FluentIcons.a_a_d_logo),
-          title: const DragToMoveArea(child: Text("FFMpeg Testing")),
+          leading: Icon(FluentIcons.a_a_d_logo),
+          title: DragToMoveArea(child: Text("FFMpeg Testing")),
           automaticallyImplyLeading: false,
-          actions:
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: const [
+          actions: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             if (!kIsWeb) WindowButtons(),
           ]),
         ),
@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
           items: [
             PaneItem(
               body: const HomePage(),
-              icon: const Icon(material.Icons.home),
+              icon: const Icon(FluentIcons.home),
               title: const Text("Homepage"),
             ),
           ],
