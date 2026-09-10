@@ -69,12 +69,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: NavigationView(
-        appBar: const NavigationAppBar(
+        titleBar: const TitleBar(
           height: 40,
-          leading: Icon(FluentIcons.a_a_d_logo),
+          icon: Icon(FluentIcons.a_a_d_logo),
           title: DragToMoveArea(child: Text("FFMpeg Testing")),
-          automaticallyImplyLeading: false,
-          actions: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          endHeader: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             if (!kIsWeb) WindowButtons(),
           ]),
         ),
